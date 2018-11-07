@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jūsų užsakymai{% endblock %}
+
+{% block body %}
+
+<div class="container" style="width:20%">
+<form>
+<label>El. paštas</label><br>
+<input type="text" name="email" required><br>
+<label>Vardas</label><br>
+<input type="text" name="name" required><br>
+<label>Pavardė</label><br>
+<input type="text" name="surname" required><br>
+<label>Slaptažodis</label><br>
+<input type="text" name="password" required><br>
+<label>Tel. nr.</label><br>
+<input type="text" name="phone" required><br>
+&nbsp;
+<button class="btn btn-lg btn-primary btn-block" type="submit" style="width:50%">Registruotis</button>
+</form>
+</div>
+
+{% endblock %}
