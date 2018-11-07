@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jūsų profilis{% endblock %}
+
+{% block body %}
+
+<div class="container" style="width:50%" align="center">
+<h1 class="h4">Jūsų duomenys</h1>
+&nbsp;
+<label>El. paštas</label><br>
+<input type="text" name="email"><br>
+<label>Vardas</label><br>
+<input type="text" name="name"><br>
+<label>Pavardė</label><br>
+<input type="text" name="surname"><br>
+<label>Tel. nr.</label><br>
+<input type="text" name="phone"><br>
+&nbsp;
+<h1 class="h4">Naujienlaiškiai</h1>
+&nbsp;
+<input type="checkbox" name="naujienlaiskai">Noriu gauti naujienlaiškius<br>
+&nbsp;
+<button class="btn btn-lg btn-primary btn-block" type="submit" style="width:10%; font-size:12px">Išsaugoti</button>
+&nbsp;
+<p><a href="kuzsakymai" class="button">Užsakymai</a>
+
+{% endblock %}

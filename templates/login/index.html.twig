@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Prisijungti{% endblock %}
+
+{% block body %}
+
+<div class="container" style="width:20%">
+<form class="form-signin" align="center">
+<h1 class="h3">Prisijunkite</h1>
+<label for="inputEmail" class="sr-only">El. pašto adresas</label>
+<input type="email" id="inputEmail" class="form-control" placeholder="El. pašto adresas" autofocus>
+<label for="inputPassword" class="sr-only">Slaptažodis</label>
+<input type="password" id="inputPassword" class="form-control" placeholder="Slaptažodis">
+<div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Prisiminti mane
+        </label>
+      </div>
+<a href="kprofilis" class="button">Klientui</a>
+<p><a href="#" class="button">Darbuotojui</a>
+</form>
+</div>
+
+{% endblock %}
