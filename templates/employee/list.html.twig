@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Darbuotojai{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+      <h3 style="text-align: center">Darbuotojai</h3>
+      <div style="display: flex; justify-content: center">
+        <a href="/darbuotojas/prideti" class="btn btn-primary justify-content-center">Pridėti darbuotoją</a>
+      </div>
+      <table class="table mt-3">
+        <thead>
+          <tr>
+            <th>Vardas</th>
+            <th>Pavardė</th>
+            <th>El. paštas</th>
+            <th style="text-align: right">Veiksmai</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jonas</td>
+            <td>Jonaitis</td>
+            <td>jonas@jonaitis.com</td>
+            <td><a href="/darbuotojas/redaguoti"><i class="far fa-edit float-right"></i></a></td>
+          </tr>
+          <tr>
+            <td>Paulius</td>
+            <td>Paulaitis</td>
+            <td>paulius@paulaitis.com</td>
+            <td><a href="/darbuotojas/redaguoti"><i class="far fa-edit float-right"></i></a></td>
+          </tr>
+          <tr>
+            <td>Juozas</td>
+            <td>Juozaitis</td>
+            <td>juozas@juozaitis.com</td>
+            <td><a href="/darbuotojas/redaguoti"><i class="far fa-edit float-right"></i></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+{% endblock %}
