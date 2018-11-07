@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class EmployeeProfileController extends Controller
 {
     /**
-     * @Route("/dprofilis", name="darbuotojo_profilis")
+     * @Route("/darbuotojas/profilis", name="darbuotojo_profilis")
      */
     public function index()
     {
