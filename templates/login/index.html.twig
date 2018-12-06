@@ -3,22 +3,25 @@
 {% block title %}Prisijungti{% endblock %}
 
 {% block body %}
+	<style>
+	.error{color:red;}
+	</style>
+
+{% if error %}
+	<span class="error">{{ error.messageKey }} </span>
+{% endif %}
 
 <div class="container" style="width:20%">
-<form class="form-signin" align="center">
+<form class="{{path('prisijungti')}}" method="POST" align="center">
 <h1 class="h3">Prisijunkite</h1>
-<label for="inputEmail" class="sr-only">El. pašto adresas</label>
-<input type="email" id="inputEmail" class="form-control" placeholder="El. pašto adresas" autofocus>
-<label for="inputPassword" class="sr-only">Slaptažodis</label>
-<input type="password" id="inputPassword" class="form-control" placeholder="Slaptažodis">
-<div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Prisiminti mane
-        </label>
-      </div>
-<a href="/kprofilis" class="button">Klientui</a>
-<a href="/darbuotojas/profilis" class="button">Darbuotojui</a>
+
+<input type="text" name="_username" value="{{ paskutinis_vartotojas }}" placeholder="el. pašto adresas">
+<input type="password" name="_password" placeholder="slaptažodis">
+
+<p><button type="submit">Prisijungti</button>
 </form>
 </div>
+<p><a href="/kprofilis" class="button">Klientui</a>
+<a href="/darbuotojas/profilis" class="button">Darbuotojui</a>
 
 {% endblock %}

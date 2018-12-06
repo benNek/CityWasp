@@ -1,23 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Jūsų užsakymai{% endblock %}
+{% block title %}Registruotis{% endblock %}
 
 {% block body %}
 
-<div class="container" style="width:20%">
-<form>
-<label>El. paštas</label><br>
-<input type="text" name="email" required><br>
-<label>Vardas</label><br>
-<input type="text" name="name" required><br>
-<label>Pavardė</label><br>
-<input type="text" name="surname" required><br>
-<label>Slaptažodis</label><br>
-<input type="text" name="password" required><br>
-<label>Tel. nr.</label><br>
-<input type="text" name="phone" required><br>
-&nbsp;
-<button class="btn btn-lg btn-primary btn-block" type="submit" style="width:50%">Registruotis</button>
+	{% for message in app.flashes('info') %}
+		<div class="alert alert-success">
+			{{ message }}
+		</div>
+	{% endfor %} 
+
+<div class="container justify-content-between">
+	{{ form_start(form) }}
+    {{ form_row(form.vardas) }}
+    {{ form_row(form.pavarde) }}
+    {{ form_row(form.slaptazodis.first) }}
+    {{ form_row(form.slaptazodis.second) }}
+    {{ form_row(form.adresas) }}
+    {{ form_row(form.gimimo_data) }}
+    {{ form_row(form.tel_nr) }}
+    {{ form_row(form.el_pastas) }}
+    {{ form_row(form.naujienlaiskiai) }}
+    <button type="submit">Registruotis!</button>
+{{ form_end(form) }}
 </form>
 </div>
 
