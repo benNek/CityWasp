@@ -1,13 +1,24 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\Klientas: 
+            algorithm: bcrypt
     providers:
-        in_memory: { memory: ~ }
+        my_provider:
+            entity:
+                class: App\Entity\Klientas
+                property: el_pastas
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: true
+
+            form_login:
+                login_path: prisijungti
+                check_path: prisijungti
+                provider: my_provider
 
             # activate different ways to authenticate
 
