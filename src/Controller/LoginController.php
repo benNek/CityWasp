@@ -10,7 +10,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends Controller
 {
     /**
-     * @Route("/prisijungti", name="prisijungti")
+     * @Route("/login", name="login")
      */
     public function login(Request $request, AuthenticationUtils $utils)
     {
@@ -18,7 +18,7 @@ class LoginController extends Controller
         $lastUsername = $utils->getLastUsername();
         return $this->render('/login/index.html.twig', [
             'error'         => $error,
-            'paskutinis_vartotojas'     => $lastUsername
+            'last_username'     => $lastUsername
         ]);
     }
 }

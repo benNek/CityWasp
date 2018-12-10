@@ -34,6 +34,7 @@ class KlientoType extends AbstractType
             ->add('gimimo_data', DateType::class, array(
                 'label' => 'Gimimo data',
                 'widget' => 'choice',
+                'years' => range(1950,2000),
             ))
             ->add('tel_nr', TextType::class, array(
                 'label' => 'Tel. nr.',

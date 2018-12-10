@@ -1,5 +1,5 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    hide_user_not_found: false
     encoders:
         App\Entity\Klientas: 
             algorithm: bcrypt
@@ -16,9 +16,10 @@ security:
             anonymous: true
 
             form_login:
-                login_path: prisijungti
-                check_path: prisijungti
+                login_path: login
+                check_path: login
                 provider: my_provider
+                #default_target_path: /kprofilis
 
             # activate different ways to authenticate
 
@@ -31,5 +32,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/prisijungti, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/kprofilis, roles: ROLE_USER }
