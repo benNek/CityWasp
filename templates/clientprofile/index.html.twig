@@ -14,28 +14,54 @@
 	</div>
 	{% endfor %} 
 
-
-<a href = "{{ path('logout')}}" style="color: red">Atsijungti</a>
-
-<p><a href = "{{ path('delete_user')}}" style="color: red">Istrinti paskyra</a>
-
 <div class="container" style="width:80%" align="center">
-<h1 class="h4">Jūsų duomenys</h1>
-&nbsp;
+
+
+<form action = "{{ path('ChangeUserData') }}">
 <label>El. paštas</label><br>
-<input type="text" name="email"><br>
+<input type="email" name="el_pastas" value={{ app.user.username }}><br>
 <label>Vardas</label><br>
-<input type="text" name="name"><br>
-<label>Pavardė</label><br>
-<input type="text" name="surname"><br>
+<input type="text" name="vardas" value={{ app.user.getVardas }}><br>
+<label>Pavarde</label><br>
+<input type="text" name="pavarde" value={{ app.user.pavarde }}><br>
 <label>Tel. nr.</label><br>
-<input type="text" name="phone"><br>
-&nbsp;
-<h1 class="h4">Naujienlaiškiai</h1>
-&nbsp;
-<input type="checkbox" name="naujienlaiskai">Noriu gauti naujienlaiškius<br>
-&nbsp;
-<button class="btn btn-lg btn-primary btn-block" type="submit" style="width:10%; font-size:12px">Išsaugoti</button>
+<input type="text" name="telnr" value={{ app.user.telnr }}><br>
+<label>Adresas</label><br>
+<input type="text" name="adresas" value={{ app.user.getAdresas }}><br>
+<label>Gimimo data</label><br>
+<input type="date" max="2000-12-31" name="data" value={{ app.user.gimimodata|date('Y-m-d')}} style="width:16%"><br>
+<br><button type="submit" class="btn btn-lg btn-primary btn-block" style="width:19%">Atnaujinti</button><br>
+</form>
+
+<form action = "{{ path('ChangeUsersPassword') }}">
+	<input type="password" name="slaptazodis" placeholder="Naujas slaptažodis"><br>
+	&nbsp;
+	<button type="submit" class="btn btn-lg btn-primary btn-block" style="width:19%">Atnaujinti</button><br>
+	</form>
+
+{% for message in app.flashes('naujienlaiskiai') %}
+	<div class="container" align="center">
+		<div class="alert alert-success" style="width:50%">
+			{{ message }}
+		</div>
+	</div>
+	{% endfor %} 
+
+<form action = "{{ path('ChangeNewsletter') }}">
+	<button type="submit" class="btn btn-lg btn-primary btn-block" style="width:19%">Keisti naujienlaiškius</button><br>
+</form>
+
+
+</div>
+<div class="container" align=center style="width:50%">
+<form action = "{{ path('logout')}}">
+<button class="btn btn-danger" type="submit" style="width:40%">Atsijungti</button>
+</form>
+<p>
+<form action = "{{ path('delete_user')}}">
+<button class="btn btn-danger" type="submit" style="width:40%">Ištrinti paskyrą</button>
+</form>
+</div>
 &nbsp;
 <p><a href="kuzsakymai" class="button">Užsakymai</a>
 

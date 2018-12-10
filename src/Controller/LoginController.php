@@ -32,7 +32,6 @@ class LoginController extends Controller
         $currentUserId = $this->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
         $usrRepo = $em->getRepository(Klientas::class);
-
         $user = $usrRepo->find($currentUserId);
         $session = $this->get('session');
         $session = new Session();
