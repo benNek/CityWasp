@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+
 {% block title %}Registruotis{% endblock %}
 
 {% block body %}
@@ -10,7 +15,7 @@
 		</div>
 	{% endfor %} 
 
-<div class="container justify-content-between">
+<div class="container" style="width:20%">
 	{{ form_start(form) }}
     {{ form_row(form.vardas) }}
     {{ form_row(form.pavarde) }}

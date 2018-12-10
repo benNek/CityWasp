@@ -4,11 +4,12 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\KlientasRepository")
  */
-class Klientas implements UserInterface, \Serializable
+class Klientas implements UserInterface, EquatableInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -175,10 +176,30 @@ class Klientas implements UserInterface, \Serializable
         ];
     }
 
-    public function getSalt() {}
+    public function getSalt() 
+    {
+    }
 
     public function eraseCredentials()
     {
+
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        return true;
+        
+        if ($this->slaptazodis !== $user->getPassword()) {
+            return false;
+        }
+
+        //if ($this->getSalt()!== $user->getSalt()) {
+        //    return false;
+        //}
+
+        if ($this->el_pastas !== $user->getUsername()) {
+            return false;
+        }
 
     }
 
@@ -211,5 +232,4 @@ class Klientas implements UserInterface, \Serializable
             $this->naujienlaiskiai
         ) = unserialize($string, ['allowed_classes' => false]);
     }
-
 }

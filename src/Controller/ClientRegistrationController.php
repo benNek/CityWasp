@@ -11,6 +11,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class ClientRegistrationController extends AbstractController
 {
+
+	private $encoder;
+
+	public function __construct(UserPasswordEncoderInterface $encoder)
+	{
+		$this->encoder = $encoder;
+	}
+
     /**
      * @Route("/registruotis", name="klientu_registracija")
      */
@@ -27,7 +35,9 @@ class ClientRegistrationController extends AbstractController
 
             // 3) Encode the password (you could also do this via Doctrine listener)
             $password = $passwordEncoder->encodePassword($user, $user->getSlaptazodis());
-            $user->setSlaptazodis($password);
+            $user->setSlaptazodis(
+            	$this->encoder->encodePassword($user, '0000')
+            );
 
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
@@ -39,7 +49,7 @@ class ClientRegistrationController extends AbstractController
             	'Sėkmingai prisiregistravote'
             );
 
-            return $this->redirectToRoute('klientu_registracija');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render(

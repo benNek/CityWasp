@@ -4,7 +4,17 @@
 
 {% block body %}
 
-<div class="container" style="width:50%" align="center">
+
+{% for message in app.flashes('kprisijunges') %}
+	<div class="container" align="center">
+		<div class="alert alert-success" style="width:50%">
+			{{ message }}
+		</div>
+	</div>
+	{% endfor %} 
+
+
+<div class="container" style="width:80%" align="center">
 <h1 class="h4">Jūsų duomenys</h1>
 &nbsp;
 <label>El. paštas</label><br>
