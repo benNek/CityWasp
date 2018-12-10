@@ -20,10 +20,10 @@ class ClientProfileController extends Controller
     	//$this->denyAccessUnlessGranted('ROLE_USER');
 
     	//$name->$utils->getLastUsername()->getVardas();
-    	//$user=$this->getUser();
+    	$user=$this->getUser();
     	$this->AddFlash(
             	'kprisijunges',
-            	'Sveiki prisijungę'
+            	'Sveiki prisijungę, '
             );
         return $this->render('clientprofile/index.html.twig', [
             'controller_name' => 'ClientProfileController',

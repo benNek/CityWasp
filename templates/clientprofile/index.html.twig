@@ -9,10 +9,15 @@
 	<div class="container" align="center">
 		<div class="alert alert-success" style="width:50%">
 			{{ message }}
+			{{ app.user.vardas }}
 		</div>
 	</div>
 	{% endfor %} 
 
+
+<a href = "{{ path('logout')}}" style="color: red">Atsijungti</a>
+
+<p><a href = "{{ path('delete_user')}}" style="color: red">Istrinti paskyra</a>
 
 <div class="container" style="width:80%" align="center">
 <h1 class="h4">Jūsų duomenys</h1>

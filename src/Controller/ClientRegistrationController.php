@@ -35,9 +35,7 @@ class ClientRegistrationController extends AbstractController
 
             // 3) Encode the password (you could also do this via Doctrine listener)
             $password = $passwordEncoder->encodePassword($user, $user->getSlaptazodis());
-            $user->setSlaptazodis(
-            	$this->encoder->encodePassword($user, '0000')
-            );
+            $user->setSlaptazodis($password);
 
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
