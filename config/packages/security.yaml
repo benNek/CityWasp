@@ -19,7 +19,11 @@ security:
                 login_path: login
                 check_path: login
                 provider: my_provider
-                #default_target_path: /kprofilis
+                default_target_path: /kprofilis
+
+            logout:
+                path: logout
+                target: /registruotis
 
             # activate different ways to authenticate
 

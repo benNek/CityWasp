@@ -19,10 +19,10 @@
 
 <div class="container" style="width:20%">
 <form action="{{ path('login') }}" method="POST">
-<h1 class="h3">Prisijunkite</h1>
+<h1 class="h3" align=center>Prisijunkite</h1>
 
-<input type="text" name="_username" value="{{ last_username }}" placeholder="el. pašto adresas">
-<input type="password" name="_password" placeholder="slaptažodis">
+<input type="text" name="_username" value="{{ last_username }}" placeholder="el. pašto adresas" class="form-control">
+<input type="password" name="_password" placeholder="slaptažodis" class="form-control">
 
 <button type="submit" class="btn btn-lg btn-primary btn-block">Prisijungti</button>
 </form>
