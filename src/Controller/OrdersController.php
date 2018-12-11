@@ -16,4 +16,13 @@ class OrdersController extends Controller
             'controller_name' => 'OrdersController',
         ]);
     }
+    /**
+     * @Route("/naujasuzsakymas", name="naujasuzsakymas")
+     */
+    public function NewOrder()
+    {
+        return $this->render('orders/neworder.html.twig', [
+            'controller_name' => 'OrdersController',
+        ]);
+    }
 }
