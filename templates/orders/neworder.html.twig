@@ -5,9 +5,40 @@
 {% block body %}
 
 <div class="container mt-3">
+    <h3 style="text-align: center">Naujas užsakymas {{selectCar}}</h3><br><br>
+    <div class="jumbotron form-group" style="width: 40%; margin: auto;">
+        <form method="POST" action = "{{ path('naujasuzsakymas') }}" >
+            <label>Pasirinkite norimą aikštelę.</label>
+            <div class="form-group">
+                <select class="form-control" name="aikstele" id="sel1">
+                    <option value="0">---</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <small class="form-text text-muted">Pasirinkite tą aikštelę, iš kurios norite pasiimti automobilį.</small>
+            <br><button type="submit" class="btn btn-primary">Toliau</button>
+        </form>
+    </div>
+    {% if selectCar == true %}
+    <div class="jumbotron form-group" style="width: 40%; margin: 20px auto;">
+        <form method="POST" action = "{{ path('naujasuzsakymas') }}" >
+            <label>Pasirinkite norimą automobilį.</label>
+            <div class="form-group">
+                <select class="form-control" id="sel1">
+                    <option value="0">---</option>
+                    {% for automobilis in automobiliai %}
+                        <option value="0">{{automobilis.modelis}}</option>
+                    {% endfor %}
 
-   
-
+                </select>
+            </div>
+            <br><button type="submit" class="btn btn-primary">Toliau</button>
+        </form>
+    </div>
+    {% endif %}
 </div>
 
 {% endblock %}
