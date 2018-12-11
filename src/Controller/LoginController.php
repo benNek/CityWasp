@@ -27,8 +27,11 @@ class LoginController extends Controller
     /**
      * @Route("/delete_user", name="delete_user")
      */
-    public function delete_Klientas()
+    public function delete_Klientas(Request $request)
     {
+        $arPakeite = 0;
+        if ($this->getUser()->getSlaptazodis() == $request->get('slaptazodis'))
+        {
         $currentUserId = $this->getUser()->getId();
         $em = $this->getDoctrine()->getManager();
         $usrRepo = $em->getRepository(Klientas::class);
@@ -38,6 +41,23 @@ class LoginController extends Controller
         $session->invalidate();
         $em->remove($user);
         $em->flush();
+        $arPakeite = 1;
+        }
+
+        if (arPakeite == 1)
+        {
+            $user->setNaujienlaiskiai(1);
+    		$this->AddFlash(
+            	'slaptazodis',
+            	'Pakeitėte slaptažodį'
+            );
+        } else {
+            $user->setNaujienlaiskiai(1);
+    		$this->AddFlash(
+            	'slaptazodis',
+            	'Slaptažodžio pakeisti nepavyko'
+            );
+        }
 
       return $this->redirectToRoute('homepage');
     }

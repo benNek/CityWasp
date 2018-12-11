@@ -5,37 +5,57 @@
 {% block body %}
 
 <div class="container mt-3">
-    <h3 style="text-align: center">Naujas užsakymas {{selectCar}}</h3><br><br>
+    <h3 style="text-align: center">Naujas užsakymas</h3><br><br>
+    {% if selectAikstele == true %}
     <div class="jumbotron form-group" style="width: 40%; margin: auto;">
         <form method="POST" action = "{{ path('naujasuzsakymas') }}" >
             <label>Pasirinkite norimą aikštelę.</label>
             <div class="form-group">
                 <select class="form-control" name="aikstele" id="sel1">
                     <option value="0">---</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    {% for aik in aikst %}
+                        <option value="{{aik.id}}">{{aik.adresas}}</option>
+                    {% endfor %}
                 </select>
             </div>
             <small class="form-text text-muted">Pasirinkite tą aikštelę, iš kurios norite pasiimti automobilį.</small>
             <br><button type="submit" class="btn btn-primary">Toliau</button>
         </form>
     </div>
+    {% endif %}
     {% if selectCar == true %}
     <div class="jumbotron form-group" style="width: 40%; margin: 20px auto;">
         <form method="POST" action = "{{ path('naujasuzsakymas') }}" >
             <label>Pasirinkite norimą automobilį.</label>
             <div class="form-group">
-                <select class="form-control" id="sel1">
+                <select class="form-control" name="automobilis" id="sel1">
                     <option value="0">---</option>
                     {% for automobilis in automobiliai %}
-                        <option value="0">{{automobilis.modelis}}</option>
+                        <option value="{{automobilis.id}}">{{automobilis.modelis}}, {{automobilis.valstybinisnr}}, {{automobilis.minuteskaina}} Eur/min, 
+                        {{automobilis.kuras}}</option>
                     {% endfor %}
-
                 </select>
+                <input type="hidden" name="aikstele" value="{{aikstele}}">
             </div>
             <br><button type="submit" class="btn btn-primary">Toliau</button>
+        </form>
+    </div>
+    {% endif %}
+    {% if bothSelected == true %}
+    <div class="jumbotron form-group" style="width: 40%; margin: 20px auto;">
+        <form method="POST" action = "{{ path('naujasuzsakymas') }}" >
+            <h4>Patvirtinkite užsakymą</h4><br>
+            Pasirinktas automobilis: <strong>{{pasirinktasAutomobilis[0].modelis}}</strong><br>
+            Valstybinis numeris: <strong>{{pasirinktasAutomobilis[0].valstybinisnr}}</strong><br>
+            Minutės kaina: <strong>{{pasirinktasAutomobilis[0].minuteskaina}} Eur.</strong><br>
+            Kuro tipas: <strong>{{pasirinktasAutomobilis[0].kuras}}</strong><br>
+            Durų skaičius: <strong>{{pasirinktasAutomobilis[0].duruskaicius}}</strong><br>
+            <div class="form-group">
+                <input type="hidden" name="aikstele" value="{{aikstele}}">
+                <input type="hidden" name="automobilis" value="{{automobilis}}">
+            </div>
+            <br><button type="submit" class="btn btn-primary">Patvirtinti</button>
+            <a href="/uzsakymai">Atšaukti</a>
         </form>
     </div>
     {% endif %}

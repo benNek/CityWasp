@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use App\Entity\UserInfo;
 use App\Entity\Klientas;
+use App\Entity\Uzsakymas;
 use App\Form\ChangeEmailType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\FormTypeInterface;
@@ -76,7 +77,9 @@ class ClientProfileController extends Controller
      */
     public function ChangeUsersPass(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-    	$user = $this->getUser();
+		$user = $this->getUser();
+		if ($user->getSlaptazodis() == $request->get('Senasslaptazodis'))
+		{
     	$em = $this-> getDoctrine() -> getManager();
 
     	$pass = $request -> get('slaptazodis');
@@ -84,10 +87,25 @@ class ClientProfileController extends Controller
     	$user->setSlaptazodis($password);
 
     	$em->persist($user);
-    	$em->flush($user);
+		$em->flush($user);
+		}
 
     	return $this->render('clientprofile/index.html.twig');
-    }
+	}
+	
+	/**
+	 * @Route("/ShowUsersOrders", name="ShowUsersOrders")
+	 */
+	public function ShowUsersOrders(Request $request)
+	{
+		$id = $this->getUser()->getId();
+
+		$results = $this->getDoctrine()->getRepository(Uzsakymas::class)->getUsersOrders($id);
+
+		return $this->render('clientprofile/index.html.twig',[
+			'results' => $results,
+		]);
+	}
 
     /**
      * @Route("/ChangeUserData", name="ChangeUserData")
