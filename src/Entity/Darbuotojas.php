@@ -27,7 +27,7 @@ class Darbuotojas
     private $pavarde;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $tel_nr;
 
@@ -37,10 +37,13 @@ class Darbuotojas
     private $el_pastas;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adresas;
-
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $role;
     /**
      * @ORM\Column(type="integer")
      */
@@ -49,12 +52,12 @@ class Darbuotojas
     /**
      * @ORM\Column(type="time", nullable=true)
      */
-    private $darboPradzia;
+    private $darbopradzia;
 
     /**
      * @ORM\Column(type="time", nullable=true)
      */
-    private $darboPabaiga;
+    private $darbopabaiga;
 
     public function getId(): ?int
     {
@@ -109,12 +112,12 @@ class Darbuotojas
         return $this;
     }
 
-    public function getAdresas(): ?int
+    public function getAdresas(): ?string
     {
         return $this->adresas;
     }
 
-    public function setAdresas(?int $adresas): self
+    public function setAdresas(?string $adresas): self
     {
         $this->adresas = $adresas;
 
@@ -135,25 +138,34 @@ class Darbuotojas
 
     public function getDarboPradzia(): ?\DateTimeInterface
     {
-        return $this->darboPradzia;
+        return $this->darbopradzia;
     }
 
-    public function setDarboPradzia(?\DateTimeInterface $darboPradzia): self
+    public function setDarboPradzia(?\DateTimeInterface $darbopradzia): self
     {
-        $this->darboPradzia = $darboPradzia;
+        $this->darbopradzia = $darbopradzia;
 
         return $this;
     }
 
     public function getDarboPabaiga(): ?\DateTimeInterface
     {
-        return $this->darboPabaiga;
+        return $this->darbopabaiga;
     }
 
-    public function setDarboPabaiga(?\DateTimeInterface $darboPabaiga): self
+    public function setDarboPabaiga(?\DateTimeInterface $darbopabaiga): self
     {
-        $this->darboPabaiga = $darboPabaiga;
+        $this->darbopabaiga = $darbopabaiga;
 
+        return $this;
+    }
+    public function getRole(): ?int
+    {
+        return $this->role;
+    }
+    public function setRole(int $role):self
+    {
+        $this->role = $role;
         return $this;
     }
 }
