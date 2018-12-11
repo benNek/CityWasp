@@ -27,7 +27,7 @@
 <label>Tel. nr.</label><br>
 <input type="text" name="telnr" value={{ app.user.telnr }}><br>
 <label>Adresas</label><br>
-<input type="text" name="adresas" value={{ app.user.getAdresas }}><br>
+<input type="input" name="adresas" value="{{ app.user.adresas }}"><br>
 <label>Gimimo data</label><br>
 <input type="date" max="2000-12-31" name="data" value={{ app.user.gimimodata|date('Y-m-d')}} style="width:16%"><br>
 <br><button type="submit" class="btn btn-lg btn-primary btn-block" style="width:19%">Atnaujinti</button><br>

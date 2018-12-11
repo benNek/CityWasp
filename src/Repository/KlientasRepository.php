@@ -19,6 +19,20 @@ class KlientasRepository extends ServiceEntityRepository
         parent::__construct($registry, Klientas::class);
     }
 
+
+    /**
+     *  @return Klientas[] Returns an array of Klientas objects with newsletters
+     */
+    public function findByNewsletter()
+    {
+        return $this->createQueryBuilder('k')
+        ->andWhere('k.naujienlaiskiai = :val')
+        ->setParameter('val', 1)
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Klientas[] Returns an array of Klientas objects
     //  */
