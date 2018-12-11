@@ -52,6 +52,10 @@ class Klientas implements UserInterface, EquatableInterface, \Serializable
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $el_pastas;
+    /**
+     * @ORM\Column(type="integer", length=2)
+     */
+    private $role;
 
     /**
      * @ORM\Column(type="integer", length=1)
@@ -175,7 +179,15 @@ class Klientas implements UserInterface, EquatableInterface, \Serializable
             'ROLE_USER'
         ];
     }
-
+    public function getRole(): ?int
+    {
+        return $this->role;
+    }
+    public function setRole(int $role): self
+    {
+        $this->role = $role;
+        return $this;
+    }
     public function getSalt() 
     {
     }
