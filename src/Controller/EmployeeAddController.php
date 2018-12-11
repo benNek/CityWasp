@@ -6,6 +6,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use App\Entity\Klientas;
+use App\Entity\Darbuotojas;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class EmployeeAddController extends Controller
@@ -52,6 +53,21 @@ class EmployeeAddController extends Controller
         }
         $users->setRole((int)$postData);
         $em->flush();
+        if((int)$postData == 2)
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $darbuotojas = new Darbuotojas();
+            $darbuotojas->setVardas($users->getVardas());
+            $darbuotojas->SetPavarde($users->getPavarde());
+            $darbuotojas->setElPastas($users->getElpastas());
+            $darbuotojas->setTelNr($users->getTelNr());
+            $darbuotojas->setAdresas($users->getAdresas());
+            $darbuotojas->setRole((int)$users->getRole());
+            $darbuotojas->setDarboPradzia(null);
+            $darbuotojas->setDarboPabaiga(null);
+            $entityManager->persist($darbuotojas);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('homepage');
     }
 }
