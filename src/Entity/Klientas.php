@@ -183,7 +183,7 @@ class Klientas implements UserInterface, EquatableInterface, \Serializable
     {
         return $this->role;
     }
-    public function setRole(int $role): self
+    public function setRole(int $role):self
     {
         $this->role = $role;
         return $this;
