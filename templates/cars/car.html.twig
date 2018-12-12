@@ -1,23 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
-
 {% block title %}Naujas automobilis{% endblock %}
 
 {% block body %}
     <div class="container mt-5">
-      <h2>Naujas automobilis</h2>
-      {{ form_start(form) }}
-      {{ form_row(form.fk_marke) }}
-      {{ form_row(form.modelis) }}
-      {{ form_row(form.pagaminimo_metai) }}
-      {{ form_row(form.valstybinis_nr) }}
-      {{ form_row(form.pavaru_deze) }}
-      {{ form_row(form.kuras) }}
-      {{ form_row(form.duru_skaicius) }}
-      {{ form_row(form.variklis) }}
-      {{ form_row(form.minutes_kaina) }}
-      <button type="submit" class="btn btn-primary btn-block">Pridėti</button>
-      {{ form_end(form) }}
+
+      
+      <form class="col-4 offset-md-4">
+        <h2>Naujas automobilis</h2>
+
+        <div class="form-group mt-4">
+          <label for="marke">Markė</label>
+          <select id="marke" class="form-control">
+            <option selected>-</option>
+            <option>BMW</option>
+            <option>Audi</option>
+            <option>Opel</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+            <label for="modelis">Modelis</label>
+            <input type="text" class="form-control" id="modelis" placeholder="Astra">
+        </div>
+
+        <div class="form-group">
+            <label for="nr">Valstybinis numeris</label>
+            <input type="text" class="form-control" id="nr" placeholder="ABC123">
+        </div>
+
+        <div class="form-group">
+          <label for="pavaru_deze">Pavarų dėžė</label>
+          <select id="pavaru_deze" class="form-control">
+            <option selected>Mechaninė</option>
+            <option>Automatinė</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="kuras">Kuro tipas</label>
+          <select id="kuras" class="form-control">
+            <option selected>Benzinas</option>
+            <option>Dyzelis</option>
+            <option>Hybdridas</option>
+            <option>Elektromobilis</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="durys">Durų skaičius</label>
+          <select id="durys" class="form-control">
+            <option selected>4</option>
+            <option>2</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+            <label for="variklis">Variklio darbinis tūris</label>
+            <input type="number" class="form-control" id="variklis" placeholder="1.2">
+        </div>
+
+        <div class="form-group">
+            <label for="kaina">Minutės kaina (€)</label>
+            <input type="number" class="form-control" id="kaina" placeholder="0.3">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">Pridėti</button>
+
+      </form>
     </div>
 {% endblock %}
