@@ -7,6 +7,7 @@
     <table class="table">
   <thead>
     <tr>
+      <th scope="col">#</th>
       <th scope="col">Vardas</th>
       <th scope="col">Pavarde</th>
       <th scope="col">E.Pastas</th>
@@ -15,16 +16,14 @@
   </thead>
   <tbody>
   {% for user in users  %}
-  {% if user.role == 1 %}
     <tr>
+      <th scope="row">{{loop.index}}</th>
       <td>{{user.vardas}}</td>
       <td>{{user.pavarde}}</td>
       <td>{{user.ElPastas}}</td>
         <td>
-  <a href="{{path('redaguoti', {id: user.id})}}"><button type="button" class="btn btn-primary">Pridėti/Redaguoti</button></a>
+  <a href="{{path('redaguoti', {id: user.id})}}"><button type="button" class="btn btn-primary">Redaguoti</button></a>
     </td>
-    {% endif %}
-    {% else %}
     </tr>
     {% endfor %}
   </tbody>
