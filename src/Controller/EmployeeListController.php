@@ -22,6 +22,35 @@ class EmployeeListController extends Controller
         return $this->render('employee/list.html.twig', [
             'users' => $users,
             'naudotojas' => $naudotojas,
+            'tikrinti' => false
+        ]);
+    }
+        /**
+     * @Route("/checkIfWorking", name="checkIfWorking")
+     */
+    public function CheckIfWorking(Request $request)
+    {
+        $repository = $this->getDoctrine()->getRepository(Darbuotojas::class);
+        $users = $repository->findAll();
+        $naudotojas = $this->getUser()->getRole();
+
+        $currentTime = date("H:i:s");
+        $darboPradzia = $request->get("dataNuo");
+        $darboPabaiga = $request->get("dataIki");
+        if($currentTime < $darboPabaiga && $currentTime > $darboPradzia)
+        {
+            return $this->render('employee/list.html.twig', [
+                'users' => $users,
+                'naudotojas' => $naudotojas,
+                'dirba' => true,
+                'tikrinti' => true
+            ]); 
+        }       
+        return $this->render('employee/list.html.twig', [
+            'users' => $users,
+            'naudotojas' => $naudotojas,
+            'dirba' => false,
+            'tikrinti' => true
         ]);
     }
     /**
