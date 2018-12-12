@@ -19,32 +19,74 @@ class AutomobilisRepository extends ServiceEntityRepository
         parent::__construct($registry, Automobilis::class);
     }
 
-    // /**
-    //  * @return Automobilis[] Returns an array of Automobilis objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findById($id)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('a.id_AUTOMOBILIS = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getSingleResult()
+        ;
+    }
+
+    public function findByMarke($marke)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.fk_marke = :marke')
+            ->setParameter('marke', $marke)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Automobilis
+    public function findByPavaruDeze($val)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('a.pavaru_deze = :val')
+            ->setParameter('val', $val)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
         ;
     }
-    */
+
+    public function FindFromYear($val)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.pagaminimo_metai >= :val')
+            ->setParameter('val', $val)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function FindToYear($val)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.pagaminimo_metai <= :val')
+            ->setParameter('val', $val)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function FindFromPrice($val)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.minutes_kaina >= :val')
+            ->setParameter('val', $val)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function FindToPrice($val)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.minutes_kaina <= :val')
+            ->setParameter('val', $val)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 }
