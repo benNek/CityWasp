@@ -14,14 +14,9 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+       {% if app.user %}
+       <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Prisijungti</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/registruotis">Registruotis</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/kprofilis">Kliento profilis</a>
                 </li>
@@ -36,6 +31,18 @@
                 </li>
             </ul>
         </div>
+        {% else %}
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Prisijungti</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/registruotis">Registruotis</a>
+                </li>
+            </ul>
+        </div>
+       {% endif %}
     </nav>
         {% block body %}{% endblock %}
         {% block javascripts %}<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

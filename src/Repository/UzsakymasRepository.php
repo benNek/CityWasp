@@ -19,20 +19,6 @@ class UzsakymasRepository extends ServiceEntityRepository
         parent::__construct($registry, Uzsakymas::class);
     }
 
-
-    /**
-     * @return Uzsakymas[] Returns an array of Uzsakymas objects for Klientas
-     */
-    public function getUsersOrders($id)
-    {
-        return $this->createQueryBuilder('u')
-        ->andWhere('u.fk_KLIENTAS = :val')
-        ->setParameter('val', $id)
-        ->getQuery()
-        ->getResult()
-        ;
-    }
-
     
     // /**
     //  * @return Uzsakymas[] Returns an array of Uzsakymas objects

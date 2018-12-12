@@ -1,5 +1,4 @@
 security:
-    hide_user_not_found: false
     encoders:
         App\Entity\Klientas: 
             algorithm: bcrypt
