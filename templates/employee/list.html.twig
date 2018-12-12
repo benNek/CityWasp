@@ -6,9 +6,7 @@
     <div class="container mt-5">
       <h3 style="text-align: center">Darbuotojai</h3>
       <div style="display: flex; justify-content: center">
-      {% if naudotojas != 1%}
         <a href="/darbuotojas/prideti" class="btn btn-primary justify-content-center">Pridėti darbuotoją</a>
-        {% endif %}
       </div>
       <table class="table mt-3">
         <thead>
@@ -17,9 +15,6 @@
             <th>Vardas</th>
             <th>Pavardė</th>
             <th>El. paštas</th>
-            <th>Darbo pradžia</th>
-            <th>Darbo pabaiga</th>
-            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -30,14 +25,7 @@
       <td>{{user.vardas}}</td>
       <td>{{user.pavarde}}</td>
       <td>{{user.ElPastas}}</td>
-      <td>{{user.darbopradzia|date('H:i:s')}}</td>
-      <td>{{user.darbopabaiga|date('H:i:s')}}</td>
-      {% if naudotojas != 1 %}
       <td><a href="{{path('darbredagavimas', {id: user.idDarbuotojas})}}"><button type="button" class="btn btn-primary">Redaguoti</button></a></td>
-      {% if naudotojas == 3 %}
-        <td><a href="{{path('valanduivedimas', {id: user.idDarbuotojas})}}"><button type="button" class="btn btn-primary">Įvesti darbo valandas</button></a></td>
-        {% endif %}
-        {% endif %}
     </tr>
     {% endfor %}
         </tbody>
