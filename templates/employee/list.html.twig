@@ -11,31 +11,23 @@
       <table class="table mt-3">
         <thead>
           <tr>
+            <th>#</th>
             <th>Vardas</th>
             <th>Pavardė</th>
             <th>El. paštas</th>
-            <th style="text-align: right">Veiksmai</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Jonas</td>
-            <td>Jonaitis</td>
-            <td>jonas@jonaitis.com</td>
-            <td><a href="/darbuotojas/redaguoti"><i class="far fa-edit float-right"></i></a></td>
-          </tr>
-          <tr>
-            <td>Paulius</td>
-            <td>Paulaitis</td>
-            <td>paulius@paulaitis.com</td>
-            <td><a href="/darbuotojas/redaguoti"><i class="far fa-edit float-right"></i></a></td>
-          </tr>
-          <tr>
-            <td>Juozas</td>
-            <td>Juozaitis</td>
-            <td>juozas@juozaitis.com</td>
-            <td><a href="/darbuotojas/redaguoti"><i class="far fa-edit float-right"></i></a></td>
-          </tr>
+        {% for user in users  %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td>{{user.vardas}}</td>
+      <td>{{user.pavarde}}</td>
+      <td>{{user.ElPastas}}</td>
+      <td><a href="{{path('darbredagavimas', {id: user.idDarbuotojas})}}"><button type="button" class="btn btn-primary">Redaguoti</button></a></td>
+    </tr>
+    {% endfor %}
         </tbody>
       </table>
     </div>
