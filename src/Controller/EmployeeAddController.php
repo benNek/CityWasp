@@ -18,6 +18,7 @@ class EmployeeAddController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository(Klientas::class);
         $users = $repository->findAll();
+        //dd($users);
         return $this->render('employee/add.html.twig', [
             'users' => $users,
         ]);
@@ -41,11 +42,6 @@ class EmployeeAddController extends Controller
     {
         $postData;
         if ($request->getMethod() == 'POST') {
-            $vardas = $request->request->get('vardas');
-            $pavarde = $request->request->get('pavarde');
-            $telnr = $request->request->get('telnr');
-            $epastas = $request->request->get('epastas');
-            $adresas = $request->request->get('adresas');
             $postData = $request->request->get('role');
         }
         $em = $this->getDoctrine()->getManager();
@@ -55,11 +51,6 @@ class EmployeeAddController extends Controller
                 'No user found for name '.$user
             );
         }
-        $users->setVardas($vardas);
-        $users->SetPavarde($pavarde);
-        $users->setElPastas($epastas);
-        $users->setTelNr($telnr);
-        $users->setAdresas($adresas);
         $users->setRole((int)$postData);
         $em->flush();
         if((int)$postData == 2)
