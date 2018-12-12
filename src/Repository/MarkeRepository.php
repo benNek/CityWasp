@@ -19,32 +19,14 @@ class MarkeRepository extends ServiceEntityRepository
         parent::__construct($registry, Marke::class);
     }
 
-    // /**
-    //  * @return Marke[] Returns an array of Marke objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findById($id)
     {
         return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('m.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('m.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
+            ->getSingleResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Marke
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
