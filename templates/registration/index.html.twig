@@ -9,12 +9,6 @@
 
 {% block body %}
 
-	{% for message in app.flashes('info') %}
-		<div class="alert alert-success">
-			{{ message }}
-		</div>
-	{% endfor %} 
-
 <div class="container" style="width:20%">
 	{{ form_start(form) }}
     {{ form_row(form.vardas) }}

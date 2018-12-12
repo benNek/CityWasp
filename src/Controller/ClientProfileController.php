@@ -84,29 +84,13 @@ class ClientProfileController extends Controller
 
     	$pass = $request -> get('slaptazodis');
     	$password = $passwordEncoder->encodePassword($user, $pass);
-    	$user->setSlaptazodis($password);
-
+		$user->setSlaptazodis($password);
     	$em->persist($user);
 		$em->flush($user);
 		}
 
     	return $this->render('clientprofile/index.html.twig');
 	}
-	
-	/**
-	 * @Route("/ShowUsersOrders", name="ShowUsersOrders")
-	 */
-	public function ShowUsersOrders(Request $request)
-	{
-		$id = $this->getUser()->getId();
-
-		$results = $this->getDoctrine()->getRepository(Uzsakymas::class)->getUsersOrders($id);
-
-		return $this->render('clientprofile/index.html.twig',[
-			'results' => $results,
-		]);
-	}
-
     /**
      * @Route("/ChangeUserData", name="ChangeUserData")
      */

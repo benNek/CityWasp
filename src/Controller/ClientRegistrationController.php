@@ -36,16 +36,12 @@ class ClientRegistrationController extends AbstractController
             // 3) Encode the password (you could also do this via Doctrine listener)
             $password = $passwordEncoder->encodePassword($user, $user->getSlaptazodis());
             $user->setSlaptazodis($password);
+            $user->setRole(1);
 
             // 4) save the User!
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-
-            $this->AddFlash(
-            	'info',
-            	'Sėkmingai prisiregistravote'
-            );
 
             return $this->redirectToRoute('login');
         }
