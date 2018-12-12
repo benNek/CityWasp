@@ -22,7 +22,8 @@ class EmployeeListController extends Controller
         return $this->render('employee/list.html.twig', [
             'users' => $users,
             'naudotojas' => $naudotojas,
-            'tikrinti' => false
+            'tikrinti' => false,
+            'tikrintialga' => false
         ]);
     }
         /**
@@ -51,6 +52,27 @@ class EmployeeListController extends Controller
             'naudotojas' => $naudotojas,
             'dirba' => false,
             'tikrinti' => true
+        ]);
+    }
+        /**
+     * @Route("/alga", name="countAlga")
+     */
+    public function countAlga(Request $request)
+    {
+        $koficientas = 3;
+        $repository = $this->getDoctrine()->getRepository(Darbuotojas::class);
+        $users = $repository->findAll();
+        $naudotojas = $this->getUser()->getRole();
+        $pradzia = $request->get("dataNuo");
+        $pabaiga = $request->get("dataIki");
+        $skirtumas = (int)$pabaiga - (int)$pradzia;
+        $skirtumas = $skirtumas * $koficientas;
+        return $this->render('employee/list.html.twig', [
+            'users' => $users,
+            'naudotojas' => $naudotojas,
+            'alga' => $skirtumas,
+            'tikrintialga' => true,
+            'tikrinti' => false
         ]);
     }
     /**
