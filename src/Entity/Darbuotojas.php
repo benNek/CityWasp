@@ -14,7 +14,7 @@ class Darbuotojas
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private $id_DARBUOTOJAS;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -44,11 +44,6 @@ class Darbuotojas
      * @ORM\Column(type="integer", nullable=true)
      */
     private $role;
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $id_DARBUOTOJAS;
-
     /**
      * @ORM\Column(type="time", nullable=true)
      */

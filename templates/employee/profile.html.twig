@@ -1,38 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Darbuotojo profilis{% endblock %}
+{% block title %}Darbuotojo priemimo forma{% endblock %}
 
 {% block body %}
     <div class="container mt-5">
-      <h3 style="text-align: center">Darbuotojo profilis</h3>
-      <div class="row">
-        <div class="col-3 mt-4">
-          <i class="fas fa-user fa-7x float-right"></i>
+      <h3 style="text-align: center">Redaguoti/Atleisti</h3>
+      <form class="mt-3" method = "POST" action = "{{path('atnaujinti', {id: user.idDarbuotojas})}}">
+        <div class="form-row">
+          <div class="form-group col-4">
+            <input type="text" class="form-control" id="vardas" value="{{user.vardas}}">
+          </div>
+          <div class="form-group col-4">
+            <input type="text" class="form-control" id="pavarde" value="{{user.pavarde}}">
+          </div>
+          <div class="form-group col-4">
+            <input type="text" class="form-control" id="tel_nr" value="{{user.telnr}}">
+          </div>
         </div>
-        <div class="col-9">
-          <form class="mt-3">
-            <div class="form-row">
-              <div class="form-group col-4">
-                <input type="text" class="form-control" id="vardas" value="Jonas" disabled>
-              </div>
-              <div class="form-group col-4">
-                <input type="text" class="form-control" id="pavarde" value="Jonaitis" disabled>
-              </div>
-              <div class="form-group col-4">
-                <input type="text" class="form-control" id="tel_nr" value="+37061234567" disabled>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-6">
-                <input type="text" class="form-control" id="epastas" value="jonas@jonaitis.com" disabled>
-              </div>
-              <div class="form-group col-6">
-                <input type="text" class="form-control" id="adresas" value="Jonaičių g. 47a" disabled>
-              </div>
-            </div>
-          </form>
-          <a href="/darbuotojas/grafikas" class="btn btn-block btn-info">Darbo grafikas</a>
+        <div class="form-row">
+          <div class="form-group col-4">
+            <input type="text" class="form-control" name="epastas" value="{{user.elpastas}}">
+          </div>
+          <div class="form-group col-4">
+            <input type="text" class="form-control" name="adresas" value="{{user.adresas}}">
+          </div>
+          <div class="form-group col-4">
+            <input type="number" class="form-control" name="role" placeholder="Iveskite role: 1-Klientas 2-Darbuotojas">
+          </div>
         </div>
-      </div>
+      <input type="submit" class="btn btn-primary" value ="Prideti"</input>
+      </form>
     </div>
 {% endblock %}
