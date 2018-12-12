@@ -19,7 +19,6 @@ class UzsakymasRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Uzsakymas::class);
     }
-
     public function getAllOrderData($id)
     {
 
@@ -73,9 +72,7 @@ class UzsakymasRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult()
         ;
-    }
-
-    
+    }    
     // /**
     //  * @return Uzsakymas[] Returns an array of Uzsakymas objects
     //  */
