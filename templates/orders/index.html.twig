@@ -6,7 +6,8 @@
 
 <div class="container mt-3">
   <h3 style="text-align: center; margin-bottom: 20px;">Mano užsakymai</h3>
-    <table class="table">
+  {% if orders|length > 0 %}
+  <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -32,7 +33,7 @@
             {% endif %}
         <td>{{order.name}}</td>
         <td>{{order.minutes_kaina}} Eur.</td>
-        <td>{{order.suma}} Eur.</td>
+        <td>{% if order.suma is empty %} 0 Eur. {% else %} {{order.suma}} Eur. {% endif %}</td>
         {% if order.uzsakymo_busena == 3 %} 
         <td>
           <form method="POST" action = "{{ path('redaguotiuzsakyma') }}" >
@@ -50,13 +51,19 @@
     <div class="container">
         <div class="jumbotron text-center">
             <h1 class="h4">Išrinkti užsakymus</h1><br>
-            <p>Data nuo
-            <input type="Date">
+            <form method="POST" action = "{{ path('filtruotiuzsakymus') }}" >
+            <p>Data nuo 
+            <input type="Date" name="datanuo" value="{{'now'|date("Y-m-d")}}">
             <p>Data iki
-            <input type="Date" style="margin-left:13px"><br>
-            <p><input type="Submit" value="Tikrinti" style="margin-left:75px">
+            <input type="Date" name="dataiki" value="{{'now'|date("Y-m-d")}}" style="margin-left:13px"><br>
+            <button type="submit" name="Filtruoti" value="notempty" class="btn btn-dark">Filtruoti</button>
+            </form>
         </div>
     </div>
+{% else %}
+  <h5 style="text-align: center; margin-bottom: 20px;">Nėra pateikta užsakymų</h5>
+{% endif %}
+
     <div class="container">
         <a href="/naujasuzsakymas">
           <button type="button" class="btn btn-dark">Naujas uzsakymas</button>

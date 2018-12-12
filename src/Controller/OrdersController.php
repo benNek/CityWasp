@@ -20,7 +20,7 @@ class OrdersController extends Controller
         $id = $this->getUser()->getId();
 
         $ordersql = $this->getDoctrine()->getRepository(Uzsakymas::class)->getAllOrderData($id);
-       //dd($ordersql);
+        //dd($ordersql);
 
         return $this->render('orders/index.html.twig', [
                 'orders' => $ordersql
@@ -86,6 +86,7 @@ class OrdersController extends Controller
      */
     public function SaveOrder(Request $request)
     {
+        date_default_timezone_set('Europe/Vilnius');
         $entityManager = $this->getDoctrine()->getManager();
         $ordersManager = $this->getDoctrine()->getRepository(Uzsakymas::class);
         $id = $this->getUser()->getId();
@@ -146,6 +147,7 @@ class OrdersController extends Controller
      */
     public function FinishOrder(Request $request)
     {
+        date_default_timezone_set('Europe/Vilnius');
         if(!empty($request->get('submitFinish'))){
             $entityManager = $this->getDoctrine()->getManager();
 
@@ -160,8 +162,9 @@ class OrdersController extends Controller
             $toDate = $order[0]->getGrazinimoData();
             $skirtumas = ($order[0]->getGrazinimoData())->diff($fromDate);
             $skirtumas = $skirtumas->format("%i");
+          //  dd($skirtumas);
             $car = $carsManager->findBy(['id_AUTOMOBILIS' => $order[0]->getAutomobilioId()]);
-            $price = (int)$car[0]->getMinutesKaina() * (int)$skirtumas;
+            $price = (float)$car[0]->getMinutesKaina() * (float)$skirtumas;
             $time = date('Y-m-d H:i:s');
             $order[0]->setGrazinimoData(\DateTime::createFromFormat('Y-m-d H:i:s', $time));
             $order[0]->setUzsakymoBusena(4);
@@ -169,8 +172,6 @@ class OrdersController extends Controller
             $entityManager->flush();
 
             $saskaita = new Saskaita();
-
-
 
             $saskaita->setSuma((float)$price);
             $time = date('Y-m-d H:i:s');
@@ -180,5 +181,33 @@ class OrdersController extends Controller
             $entityManager->flush();
         }
         return $this->redirectToRoute('uzsakymai');
+    }
+    /**
+     * @Route("/filtruotiuzsakymus", name="filtruotiuzsakymus")
+     */
+    public function FilterOrders(Request $request)
+    {
+        /*//$id = $this->getUser()->getId();
+        if(!empty($request->get('submitEdit'))){
+            $id = (int)$request->get('orderid');
+            $ordersql = $this->getDoctrine()->getRepository(Uzsakymas::class)->getOrderById($id);
+            //return $this->redirectToRoute('uzsakymai');
+        }*/
+        date_default_timezone_set('Europe/Vilnius');
+        if(!empty($request->get('Filtruoti'))){
+            $dataNuo = $request->get('datanuo');
+            $dataIki = $request->get('dataiki');
+            $stop_date = date('Y-m-d', strtotime($dataIki . ' +1 day'));
+            if(!empty($dataNuo) && !empty($stop_date)){
+                $id = $this->getUser()->getId();
+                $ordersql = $this->getDoctrine()->getRepository(Uzsakymas::class)->getOrdersByIdAndDate($id, $dataNuo, $stop_date);
+            }
+            else {
+                return $this->redirectToRoute('uzsakymai');
+            }
+        }
+        return $this->render('orders/index.html.twig', [
+            'orders' => $ordersql
+        ]);
     }
 }
