@@ -27,7 +27,7 @@ class Automobilis
     private $modelis;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="integer")
      */
     private $pagaminimo_metai;
 
@@ -100,12 +100,12 @@ class Automobilis
         return $this;
     }
 
-    public function getPagaminimoMetai(): ?\DateTimeInterface
+    public function getPagaminimoMetai(): ?int
     {
         return $this->pagaminimo_metai;
     }
 
-    public function setPagaminimoMetai(\DateTimeInterface $pagaminimo_metai): self
+    public function setPagaminimoMetai(int $pagaminimo_metai): self
     {
         $this->pagaminimo_metai = $pagaminimo_metai;
 

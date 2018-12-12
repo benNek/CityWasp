@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Uzsakymas;
 use App\Entity\Automobilis;
 use App\Entity\Aikstele;
+use App\Entity\Saskaita;
 
 class OrdersController extends Controller
 {
@@ -16,9 +17,13 @@ class OrdersController extends Controller
      */
     public function index()
     {
+        $id = $this->getUser()->getId();
+
+        $ordersql = $this->getDoctrine()->getRepository(Uzsakymas::class)->getAllOrderData($id);
+       //dd($ordersql);
 
         return $this->render('orders/index.html.twig', [
-
+                'orders' => $ordersql
         ]);
     }
     /**
@@ -29,7 +34,6 @@ class OrdersController extends Controller
         $entityManager = $this->getDoctrine()->getRepository(Uzsakymas::class);
         $carsManager = $this->getDoctrine()->getRepository(Automobilis::class);
         $aikstelesManager = $this->getDoctrine()->getRepository(Aikstele::class);
-        $uzsakymai = $entityManager->findAll();
 
         if(empty($aikstele)) $aikstele = "0";
         if(empty($automobilis)) $automobilis = "0";
@@ -76,6 +80,105 @@ class OrdersController extends Controller
                 'pasirinktasAutomobilis' => $pasirinktasAutomobilis
             ]);
         }
+    }
+    /**
+     * @Route("/saveorder", name="saveorder")
+     */
+    public function SaveOrder(Request $request)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $ordersManager = $this->getDoctrine()->getRepository(Uzsakymas::class);
+        $id = $this->getUser()->getId();
+        if(!empty($request->get('ordersubmit'))){
+            if($request->get('aikstele') !== "0" && !empty($request->get('aikstele'))) $aikstele = $request->get('aikstele');
+            if($request->get('automobilis') !== "0" && !empty($request->get('automobilis')))$automobilis = $request->get('automobilis');
+            $order = new Uzsakymas();
+            $time = date('Y-m-d H:i:s');
+            $order->setPaemimoData(\DateTime::createFromFormat('Y-m-d H:i:s', $time));
+            $order->setUzsakymoBusena(3);
+            $order->setAutomobilioId((int)$automobilis);
+            $order->setKlientoId($id);
+            $entityManager->persist($order);
+            $entityManager->flush();
+            return $this->redirectToRoute('uzsakymai');
+        }
+        $orders = $ordersManager->findBy(['fk_KLIENTAS' => $id]);
+        return $this->render('orders/index.html.twig', [
+                'orders' => $orders
+        ]);    
+    }
+    /**
+     * @Route("/redaguotiuzsakyma", name="redaguotiuzsakyma")
+     */
+    public function EditOrder(Request $request)
+    {
+        //$id = $this->getUser()->getId();
+        if(!empty($request->get('submitEdit'))){
+            $id = (int)$request->get('orderid');
+            $ordersql = $this->getDoctrine()->getRepository(Uzsakymas::class)->getOrderById($id);
+            //return $this->redirectToRoute('uzsakymai');
+        }
+        return $this->render('orders/editOrder.html.twig', [
+            'order' => $ordersql[0]
+        ]);
+    }
+    /**
+     * @Route("/trintiuzsakyma", name="trintiuzsakyma")
+     */
+    public function DeleteOrder(Request $request)
+    {
+        if(!empty($request->get('submitCancel'))){
+            $entityManager = $this->getDoctrine()->getManager();
 
+            $id = (int)$request->get('orderid');
+            $ordersManager = $this->getDoctrine()->getRepository(Uzsakymas::class);
+            $order = $ordersManager->findBy(['id_UZSAKYMAS' => $id]);
+            $order[0]->setUzsakymoBusena(5);
+            $entityManager->persist($order[0]);
+            $entityManager->flush();
+            //$ordersql = $this->getDoctrine()->getRepository(Uzsakymas::class)->getOrderById($id);
+
+        }
+        return $this->redirectToRoute('uzsakymai');
+    }
+    /**
+     * @Route("/baigtiuzsakyma", name="baigtiuzsakyma")
+     */
+    public function FinishOrder(Request $request)
+    {
+        if(!empty($request->get('submitFinish'))){
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $id = (int)$request->get('orderid');
+            $ordersManager = $this->getDoctrine()->getRepository(Uzsakymas::class);
+            $moneyManager = $this->getDoctrine()->getRepository(Saskaita::class);
+            $carsManager = $this->getDoctrine()->getRepository(Automobilis::class);
+            $order = $ordersManager->findBy(['id_UZSAKYMAS' => $id]);
+            $fromDate = $order[0]->getPaemimoData();
+            $time = date('Y-m-d H:i:s');
+            $order[0]->setGrazinimoData(\DateTime::createFromFormat('Y-m-d H:i:s', $time));
+            $toDate = $order[0]->getGrazinimoData();
+            $skirtumas = ($order[0]->getGrazinimoData())->diff($fromDate);
+            $skirtumas = $skirtumas->format("%i");
+            $car = $carsManager->findBy(['id_AUTOMOBILIS' => $order[0]->getAutomobilioId()]);
+            $price = (int)$car[0]->getMinutesKaina() * (int)$skirtumas;
+            $time = date('Y-m-d H:i:s');
+            $order[0]->setGrazinimoData(\DateTime::createFromFormat('Y-m-d H:i:s', $time));
+            $order[0]->setUzsakymoBusena(4);
+            $entityManager->persist($order[0]);
+            $entityManager->flush();
+
+            $saskaita = new Saskaita();
+
+
+
+            $saskaita->setSuma((float)$price);
+            $time = date('Y-m-d H:i:s');
+            $saskaita->setData(\DateTime::createFromFormat('Y-m-d H:i:s', $time));
+            $saskaita->setFkUZSAKYMASuzsakymoId($id);
+            $entityManager->persist($saskaita);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('uzsakymai');
     }
 }

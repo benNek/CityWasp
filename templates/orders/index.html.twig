@@ -5,40 +5,48 @@
 {% block body %}
 
 <div class="container mt-3">
+  <h3 style="text-align: center; margin-bottom: 20px;">Mano užsakymai</h3>
     <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Kazkas</th>
       <th scope="col">Automobilis</th>
-      <th scope="col">Keliones laikas</th>
-      <th scope="col">Nuvaziuotas atstumas</th>
-      <th scope="col">Kaina</th>
+      <th scope="col">Keliones pradzia</th>
+      <th scope="col">Keliones pabaiga</th>
+      <th scope="col">Paslaugos statusas</th>
+      <th scope="col">Minutes kaina</th>
+      <th scope="col">Kaina viso</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    {% for i in 0..5 %}
+    {% for order in orders %}
     <tr>
-      <th scope="row">{{i+1}}</th>
-      <td>2018 07 {{5 + i}}</td>
-      <td>Honda Civic</td>
-      <td>{{15+i*5}}min.</td>
-      <td>{{25+i*8}}km.</td>
-      <td>{{5+i*3}}EUR.</td>
+      <th scope="row">{{loop.index}}</th>
+        <td>{{order.modelis}} {{order.pavadinimas}}</td>
+        <td>{{order.paemimo_data|date('Y-m-d H:i:s')}}</td>
+        <td>{% if order.grazinimo_data is not empty %} 
+            {{order.grazinimo_data|date('Y-m-d H:i:s')}}</td>
+            {% else %}
+            Kelionė nebaigta</td>
+            {% endif %}
+        <td>{{order.name}}</td>
+        <td>{{order.minutes_kaina}} Eur.</td>
+        <td>{{order.suma}} Eur.</td>
+        {% if order.uzsakymo_busena == 3 %} 
+        <td>
+          <form method="POST" action = "{{ path('redaguotiuzsakyma') }}" >
+          <input type="hidden" name="orderid" value="{{order.id_UZSAKYMAS}}">
+            <button type="submit" name="submitEdit" value="notempty" class="btn btn-dark">Tvarkyti paslaugą</button>
+          </form>
+        </td>
+        {% else %}
+          <td></td>
+        {% endif %}
     </tr>
     {% endfor %}
   </tbody>
 </table>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-</nav>
-    &nbsp;
     <div class="container">
         <div class="jumbotron text-center">
             <h1 class="h4">Išrinkti užsakymus</h1><br>
