@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block title %}Automobiliai{% endblock %}
 
 {% block body %}
@@ -7,110 +9,42 @@
       <div class="row">
         <div class="col-8">
           <div class="row">
-            <div class="col">
-              <div class="card">
-                <img class="card-img-top" src="https://loremflickr.com/g/320/240/car?lock=1" alt="Automobilis">
-                <div class="card-body">
-                  <p class="card-text">Automobilio aprasymas</p>
+            {% for car in cars %}
+              <div class="col-4 mb-2">
+                <div class="card">
+                  <img src="https://loremflickr.com/g/320/240/car,{{car.modelis}}/all?{{car.modelis}}" alt="{{ car.modelis }}" class="card-img-top">
+                  <div class="card-body">
+                    <h5>
+                      {{car.marke}} {{ car.modelis }} ({{ car.pagaminimoMetai }})
+                    </h5>
+                    <p><span class="badge badge-primary">{{ car.minutesKaina }}€/min</span></p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><i class="fas fa-cogs mr-1"></i>{{ car.getPavaruDezeDisplay() }}</li>
+                    <li class="list-group-item"><i class="fas fa-gas-pump mr-1"></i>{{ car.kuras }}</li>
+                    <li class="list-group-item"><i class="fas fa-door-open mr-1"></i>{{ car.duruSkaicius }}</li>
+                  </ul>
+                  <a href="{{ path('automobilis-redaguoti', {'id':car.id}) }}" class="btn btn-outline-warning">Redaguoti</a>
+                  <a href="{{ path('automobilis-pasalinti', {'id':car.id}) }}" class="btn btn-outline-danger">Pašalinti</a>
                 </div>
               </div>
-            </div>
-
-            <div class="col">
-              <div class="card">
-                <img class="card-img-top" src="https://loremflickr.com/g/320/240/car?lock=2" alt="Automobilis">
-                <div class="card-body">
-                  <p class="card-text">Automobilio aprasymas</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="card">
-                <img class="card-img-top" src="https://loremflickr.com/g/320/240/car?lock=3" alt="Automobilis">
-                <div class="card-body">
-                  <p class="card-text">Automobilio aprasymas</p>
-                </div>
-              </div>
-            </div>
+            {% endfor %}
           </div>
-
-          <div class="row mt-3">
-            <div class="col">
-              <div class="card">
-                <img class="card-img-top" src="https://loremflickr.com/g/320/240/car?lock=4" alt="Automobilis">
-                <div class="card-body">
-                  <p class="card-text">Automobilio aprasymas</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="card">
-                <img class="card-img-top" src="https://loremflickr.com/g/320/240/car?lock=5" alt="Automobilis">
-                <div class="card-body">
-                  <p class="card-text">Automobilio aprasymas</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col">
-              <div class="card">
-                <img class="card-img-top" src="https://loremflickr.com/g/320/240/car?lock=6" alt="Automobilis">
-                <div class="card-body">
-                  <p class="card-text">Automobilio aprasymas</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
 
         <div class="col-4">
           <a class="btn btn-outline-info mb-3 btn-block" href="/automobilis" role="button">Naujas automobilis</a>
           <a class="btn btn-outline-primary mb-3 btn-block" href="/automobiliu-statistika" role="button">Naudojimo statistika</a>
           <h3>Filtrai</h3>
-          <form>
-            <div class="form-group">
-              <label for="marke">Markė</label>
-              <select id="marke" class="form-control">
-                <option selected>-</option>
-                <option>BMW</option>
-                <option>Audi</option>
-                <option>Opel</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="deze">Pavarų dėžė</label>
-              <select id="deze" class="form-control">
-                <option selected>-</option>
-                <option>Automatinė</option>
-                <option>Mechaninė</option>s
-              </select>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group col-6">
-                <label for="metai_nuo">Metai nuo</label>
-                <input type="number" class="form-control" id="metai_nuo">
-              </div>
-              <div class="form-group col-6">
-                <label for="metai_iki">Metai iki</label>
-                <input type="number" class="form-control" id="metai_iki">
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group col-6">
-                <label for="kaina_nuo">Kaina nuo</label>
-                <input type="number" class="form-control" id="kaina_nuo">
-              </div>
-              <div class="form-group col-6">
-                <label for="kaina_iki">Kaina iki</label>
-                <input type="number" class="form-control" id="kaina_iki">
-              </div>
-            </div>
-          </form>
+          {{ form_start(form) }}
+          {{ form_row(form.marke) }}
+          {{ form_row(form.pavaru_deze) }}
+          {{ form_row(form.metai_nuo) }}
+          {{ form_row(form.metai_iki) }}
+          {{ form_row(form.kaina_nuo) }}
+          {{ form_row(form.kaina_iki) }}
+          <button type="submit" class="btn btn-outline-info btn-block">Filtruoti</button>
+          {{ form_end(form) }}
         </div>
       </div>
       
