@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Naujas uzsakymas{% endblock %}
+
+{% block body %}
+
+<div class="container mt-3">
+    <h3 style="text-align: center">Redaguoti užsakymą</h3><br><br>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Automobilis</th>
+      <th scope="col">Keliones pradzia</th>
+      <th scope="col">Keliones pabaiga</th>
+      <th scope="col">Paslaugos statusas</th>
+      <th scope="col">Minutes kaina</th>
+      <th scope="col">Kaina viso</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>{{order.modelis}} {{order.pavadinimas}}</td>
+        <td>{{order.paemimo_data|date('Y-m-d H:i:s')}}</td>
+        <td>{% if order.grazinimo_data is not empty %} 
+            {{order.grazinimo_data|date('Y-m-d H:i:s')}}</td>
+            {% else %}
+            Kelionė dar nebaigta
+            {% endif %}
+        <td>{{order.name}}</td>
+        <td>{{order.minutes_kaina}} Eur.</td>
+        <td>kaina viso Eur.</td>
+    </tr>
+  </tbody>
+</table>
+            <form method="POST" action = "{{ path('trintiuzsakyma') }}" >
+                <input type="hidden" name="orderid" value="{{order.id_UZSAKYMAS}}">
+                <button type="submit" name="submitCancel" value="notempty" class="btn btn-dark">Atšaukti paslaugą</button>
+            </form>
+            <br>
+            <form method="POST" action = "{{ path('baigtiuzsakyma') }}" >
+                <input type="hidden" name="orderid" value="{{order.id_UZSAKYMAS}}">
+                <button type="submit" name="submitFinish" value="notempty" class="btn btn-dark">Užbaigti paslaugą, skaičiuoti kainą</button>
+            </form>
+</div>
+
+{% endblock %}

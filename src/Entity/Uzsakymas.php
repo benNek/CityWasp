@@ -95,7 +95,7 @@ class Uzsakymas
 
     public function setDarbuotojoId(?int $darbuotojo_id): self
     {
-        $this->darbuotojo_id = $fk_DARBUOTOJASdarbuotojo_id;
+        $this->fk_DARBUOTOJASdarbuotojo_id = $darbuotojo_id;
 
         return $this;
     }
@@ -107,7 +107,7 @@ class Uzsakymas
 
     public function setAutomobilioId(int $automobilio_id): self
     {
-        $this->automobilio_id = $fk_AUTOMOBILISid_AUTOMOBILIS;
+        $this->fk_AUTOMOBILISid_AUTOMOBILIS = $automobilio_id;
 
         return $this;
     }
@@ -119,7 +119,7 @@ class Uzsakymas
 
     public function setKlientoId(int $kliento_id): self
     {
-        $this->kliento_id = $fk_KLIENTAS;
+        $this->fk_KLIENTAS = $kliento_id;
 
         return $this;
     }

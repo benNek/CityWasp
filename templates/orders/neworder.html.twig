@@ -43,7 +43,7 @@
     {% endif %}
     {% if bothSelected == true %}
     <div class="jumbotron form-group" style="width: 40%; margin: 20px auto;">
-        <form method="POST" action = "{{ path('naujasuzsakymas') }}" >
+        <form method="POST" action = "{{ path('saveorder') }}" >
             <h4>Patvirtinkite užsakymą</h4><br>
             Pasirinktas automobilis: <strong>{{pasirinktasAutomobilis[0].modelis}}</strong><br>
             Valstybinis numeris: <strong>{{pasirinktasAutomobilis[0].valstybinisnr}}</strong><br>
@@ -54,7 +54,7 @@
                 <input type="hidden" name="aikstele" value="{{aikstele}}">
                 <input type="hidden" name="automobilis" value="{{automobilis}}">
             </div>
-            <br><button type="submit" class="btn btn-primary">Patvirtinti</button>
+            <br><button type="submit" name="ordersubmit" value="submit" class="btn btn-primary">Patvirtinti</button>
             <a href="/uzsakymai">Atšaukti</a>
         </form>
     </div>
