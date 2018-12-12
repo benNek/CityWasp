@@ -16,6 +16,11 @@
             </div>        
           {% endif %}
       {% endif %}
+      {% if tikrintialga == true %}
+            <div class="alert alert-info">
+              <strong>Darbuotojas uždirbs {{alga}}€</strong>
+            </div>        
+      {% endif %}
       <div style="display: flex; justify-content: center">
       {% if naudotojas != 1%}
         <a href="/darbuotojas/prideti" class="btn btn-primary justify-content-center">Pridėti darbuotoją</a>
@@ -52,7 +57,11 @@
         <input type="hidden" name="dataIki" value="{{user.darbopabaiga|date("H:i:s")}}">
         <td><button type="submit" name="dirbaNedirba" value="notempty" class="btn btn-primary">Patikrinti ar dirba</button></td>
       </form>
-      <td><button type="button" class="btn btn-primary">Skaičiuoti algą</button></td>
+      <form method="post" action="{{ path('countAlga') }}">
+        <input type="hidden" name="dataNuo" value="{{user.darbopradzia|date("H")}}">
+        <input type="hidden" name="dataIki" value="{{user.darbopabaiga|date("H")}}">
+        <td><button type="submit" name="alga" value="notempty" class="btn btn-primary">Skaičiuoti algą</button></td>
+      </form>
       {% if naudotojas == 3 %}
         <td><a href="{{path('valanduivedimas', {id: user.idDarbuotojas})}}"><button type="button" class="btn btn-primary">Įvesti darbo valandas</button></a></td>
         {% endif %}
