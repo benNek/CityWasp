@@ -96,32 +96,10 @@ class UzsakymasRepository extends ServiceEntityRepository
         ->getResult()
         ;
     }    
-    // /**
-    //  * @return Uzsakymas[] Returns an array of Uzsakymas objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Uzsakymas
+    public function getTotalTrips()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return sizeof($this->createQueryBuilder('a')
+            ->getQuery()->getResult());
     }
-    */
 }

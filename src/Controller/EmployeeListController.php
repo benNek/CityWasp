@@ -3,10 +3,8 @@
 namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Time;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use App\Entity\Darbuotojas;
 
 class EmployeeListController extends Controller
@@ -18,10 +16,8 @@ class EmployeeListController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository(Darbuotojas::class);
         $users = $repository->findAll();
-        $naudotojas = $this->getUser()->getRole();
         return $this->render('employee/list.html.twig', [
             'users' => $users,
-            'naudotojas' => $naudotojas,
         ]);
     }
     /**
@@ -42,11 +38,6 @@ class EmployeeListController extends Controller
     {
         $postData;
         if ($request->getMethod() == 'POST') {
-            $vardas = $request->request->get('vardas');
-            $pavarde = $request->request->get('pavarde');
-            $telnr = $request->request->get('telnr');
-            $epastas = $request->request->get('epastas');
-            $adresas = $request->request->get('adresas');
             $postData = $request->request->get('role');
         }
         $em = $this->getDoctrine()->getManager();
@@ -56,11 +47,6 @@ class EmployeeListController extends Controller
                 'No user found for name '.$user
             );
         }
-        $users->setVardas($vardas);
-        $users->SetPavarde($pavarde);
-        $users->setElPastas($epastas);
-        $users->setTelNr($telnr);
-        $users->setAdresas($adresas);
         $users->setRole((int)$postData);
         $em->flush();
         if((int)$postData == 1)
@@ -68,35 +54,6 @@ class EmployeeListController extends Controller
             $em->remove($users);
             $em->flush();
         }
-        return $this->redirectToRoute('homepage');
-    }
-    /**
-     * @Route("/darbuotojas/valandos/{id}", name="valanduivedimas")
-     */
-    public function ivesti(Request $request, Darbuotojas $user)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository(Darbuotojas::class)->find($user);
-        return $this->render('employee/hours.html.twig', [
-            'user' => $user,
-        ]);
-    }
-    /**
-     * @Route("/darbuotojas/ivesti/{id}", name="valanduatnaujinimas")
-     */
-    public function atnaujinimas(Request $request, Darbuotojas $user)
-    {
-        $pradzia;
-        $pabaiga;
-        if ($request->getMethod() == 'POST') {
-            $pradzia = $request->request->get('pradzia');
-            $pabaiga = $request->request->get('pabaiga');
-        }
-        $em = $this->getDoctrine()->getManager();
-        $users = $em->getRepository(Darbuotojas::class)->find($user);
-        $users->setDarboPradzia(\DateTime::createFromFormat('H:i',$pradzia));
-        $users->setDarboPabaiga(\DateTime::createFromFormat('H:i', $pabaiga));
-        $em->flush();
         return $this->redirectToRoute('homepage');
     }
 }
