@@ -19,104 +19,32 @@ class AutomobilisRepository extends ServiceEntityRepository
         parent::__construct($registry, Automobilis::class);
     }
 
-    public function findById($id)
+    // /**
+    //  * @return Automobilis[] Returns an array of Automobilis objects
+    //  */
+    /*
+    public function findByExampleField($value)
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.id_AUTOMOBILIS = :id')
-            ->setParameter('id', $id)
-            ->getQuery()
-            ->getSingleResult()
-        ;
-    }
-
-    public function findByMarke($marke)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.fk_marke = :marke')
-            ->setParameter('marke', $marke)
+            ->andWhere('a.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('a.id', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
+    */
 
-    public function findByPavaruDeze($val)
+    /*
+    public function findOneBySomeField($value): ?Automobilis
     {
         return $this->createQueryBuilder('a')
-            ->andWhere('a.pavaru_deze = :val')
-            ->setParameter('val', $val)
+            ->andWhere('a.exampleField = :val')
+            ->setParameter('val', $value)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
-
-    public function FindFromYear($val)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.pagaminimo_metai >= :val')
-            ->setParameter('val', $val)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function FindToYear($val)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.pagaminimo_metai <= :val')
-            ->setParameter('val', $val)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function FindFromPrice($val)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.minutes_kaina >= :val')
-            ->setParameter('val', $val)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function FindToPrice($val)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.minutes_kaina <= :val')
-            ->setParameter('val', $val)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    public function getCount()
-    {
-        return sizeof($this->createQueryBuilder('a')
-            ->getQuery()->getResult());
-    }
-
-    public function getAverageAge()
-    {
-        return $this->createQueryBuilder('a')
-            ->select("AVG(a.pagaminimo_metai)")
-            ->getQuery()->getSingleScalarResult();
-    }
-
-    public function getAveragePrice()
-    {
-        return $this->createQueryBuilder('a')
-            ->select("AVG(a.minutes_kaina)")
-            ->getQuery()->getSingleScalarResult();
-    }
-
-    public function getMostPopularManufacturer()
-    {
-        return $this->createQueryBuilder('a')
-            ->select("COUNT(a.fk_marke) as cnt, a.fk_marke")
-            ->groupBy("a.fk_marke")
-            ->orderBy("cnt", "DESC")
-            ->setMaxResults(1)
-            ->getQuery()->getSingleResult()['fk_marke'];
-    }
-
+    */
 }

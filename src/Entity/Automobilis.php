@@ -172,12 +172,6 @@ class Automobilis
         return $this;
     }
 
-    public function getPavaruDezeDisplay(): ?string
-    {
-        global $kernel;
-        return $kernel->getContainer()->get('doctrine')->getRepository(PavaruDeze::class)->findById($this->pavaru_deze)->getName();
-    }
-
     public function getPavaruDeze(): ?int
     {
         return $this->pavaru_deze;
@@ -188,12 +182,6 @@ class Automobilis
         $this->pavaru_deze = $pavaru_deze;
 
         return $this;
-    }
-
-    public function getMarke(): ?string
-    {
-        global $kernel;
-        return $kernel->getContainer()->get('doctrine')->getRepository(Marke::class)->findById($this->fk_marke)->getPavadinimas();
     }
 
     public function getFkMarke(): ?int
