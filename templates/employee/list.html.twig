@@ -21,6 +21,8 @@
             <th>Darbo pabaiga</th>
             <th></th>
             <th></th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -34,6 +36,8 @@
       <td>{{user.darbopabaiga|date('H:i:s')}}</td>
       {% if naudotojas != 1 %}
       <td><a href="{{path('darbredagavimas', {id: user.idDarbuotojas})}}"><button type="button" class="btn btn-primary">Redaguoti</button></a></td>
+      <td><button type="button" class="btn btn-primary">Patikrinti ar dirba</button></td>
+      <td><button type="button" class="btn btn-primary">Skaičiuoti algą</button></td>
       {% if naudotojas == 3 %}
         <td><a href="{{path('valanduivedimas', {id: user.idDarbuotojas})}}"><button type="button" class="btn btn-primary">Įvesti darbo valandas</button></a></td>
         {% endif %}
