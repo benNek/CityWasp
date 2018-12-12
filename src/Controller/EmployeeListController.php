@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Darbuotojas;
 
 class EmployeeListController extends Controller
@@ -30,6 +31,9 @@ class EmployeeListController extends Controller
             'user' => $user,
         ]);
     }
+    /**
+     * @Route("/darbuotojas/atnaujinti/{id}", name="atnaujinti")
+     */
     public function atnaujinti(Request $request, Darbuotojas $user)
     {
         $postData;
