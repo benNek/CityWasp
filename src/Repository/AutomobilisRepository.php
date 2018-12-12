@@ -89,4 +89,34 @@ class AutomobilisRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getCount()
+    {
+        return sizeof($this->createQueryBuilder('a')
+            ->getQuery()->getResult());
+    }
+
+    public function getAverageAge()
+    {
+        return $this->createQueryBuilder('a')
+            ->select("AVG(a.pagaminimo_metai)")
+            ->getQuery()->getSingleScalarResult();
+    }
+
+    public function getAveragePrice()
+    {
+        return $this->createQueryBuilder('a')
+            ->select("AVG(a.minutes_kaina)")
+            ->getQuery()->getSingleScalarResult();
+    }
+
+    public function getMostPopularManufacturer()
+    {
+        return $this->createQueryBuilder('a')
+            ->select("COUNT(a.fk_marke) as cnt, a.fk_marke")
+            ->groupBy("a.fk_marke")
+            ->orderBy("cnt", "DESC")
+            ->setMaxResults(1)
+            ->getQuery()->getSingleResult()['fk_marke'];
+    }
+
 }
